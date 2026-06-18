@@ -2,7 +2,7 @@
   "name": "Septic Inspection",
   "short_name": "Septic",
   "description": "Septic system inspection report app",
-  "start_url": "/",
+  "start_url": "/septic-app/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
