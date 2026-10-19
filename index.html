@@ -439,8 +439,9 @@ style(7.5,body,LIGHT);doc.text('A4 Inspection Report',W-M,TOP,{align:'right'});
 y=112;style(24,head,INK);doc.text('Septic Inspection',M,y);y+=10.5;
 style(24,head,LIGHT);doc.splitTextToSize(r.address||'Property address',W-M*2).forEach(l=>{doc.text(l,M,y);y+=10.5});
 style(24,head,INK);doc.text(dateStr||'Report',M,y);y+=14;
-style(10,body,MID);para(`Inspection of the on-site wastewater system at ${r.address||'the property'}${dateStr?`, carried out on ${dateStr}`:''}${s.inspector?` by ${s.inspector}`:''}.`,M,100,5.2);
-y+=6;style(7.5,label,LIGHT);doc.text('OUTCOME',M,y,{charSpace:0.25});style(10,body,INK);doc.text(outcome,M+24,y);
+style(10,body,MID);para(`Inspection of the on-site wastewater system at ${r.address||'the property'}${dateStr?`, carried out on ${dateStr}`:''}.`,M,100,5.2);
+y+=6;style(7.5,label,LIGHT);doc.text('OUTCOME',M,y,{charSpace:0.25});style(10,body,INK);doc.text(outcome,M+26,y);
+if(s.inspector){y+=6;style(7.5,label,LIGHT);doc.text('INSPECTED BY',M,y,{charSpace:0.25});style(10,body,INK);doc.text(s.inspector,M+26,y)}
 // Business block, bottom of cover
 let by=246;hair(M,by-7);style(9,head,INK);doc.text(s.bizName||'',M,by);by+=4.5;style(8,body,MID);
 [[s.licence?`Lic. ${s.licence}`:'',s.abn?`ABN ${s.abn}`:''],[s.phone,s.email],[s.address]].forEach(parts=>{const t=parts.filter(Boolean).join('   ·   ');if(t){doc.text(t,M,by);by+=4}});
@@ -475,10 +476,6 @@ if(r.photos&&r.photos.length){
     style(7.5,label,INK);doc.text(`Photo ${i+1}`,M,y+2.5);if(p.caption)side(p.caption,y+7);
     y+=h+8}catch(e){}})}
 
-// ── Sign-off ──
-chk(30);y+=2;hair(M,y);y+=8;side('Inspected by',y);
-style(11,head,INK);doc.text(s.inspector||s.bizName||'',MAIN,y);y+=5;style(8.5,body,MID);
-[s.inspector?s.bizName:'',[s.licence?`Lic. ${s.licence}`:'',s.abn?`ABN ${s.abn}`:''].filter(Boolean).join('   ·   '),[s.phone,s.email].filter(Boolean).join('   ·   ')].filter(Boolean).forEach(t=>{doc.text(t,MAIN,y);y+=4.2});
 
 // ── Footers: site on every page; report title + page number from page 2 ──
 const n=doc.getNumberOfPages();const ftitle=doc.splitTextToSize(`Septic Inspection Report   ·   ${r.address||''}`,MW-20)[0];
