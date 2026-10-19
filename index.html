@@ -43,8 +43,8 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--ink);font-siz
 .top-nav-spacer{width:80px}
 
 /* ── Home screen ── */
-.home-logo-wrap{margin-bottom:28px;text-align:center}
-.home-logo-img{height:60px;width:auto;display:block;margin:0 auto}
+.home-logo-wrap{margin-bottom:28px;text-align:center;width:100%;max-width:320px}
+.home-logo-img{width:100%;height:auto;display:block;margin:0 auto}
 .home-divider{width:48px;height:1px;background:var(--border);margin:22px auto 0}
 .home-title{font-family:var(--font-head);font-size:20px;font-weight:600;color:var(--ink);text-align:center;margin-bottom:4px;line-height:1.3}
 .home-sub{font-size:14px;color:var(--ink-light);text-align:center;margin-bottom:48px;font-family:var(--font-body)}
@@ -472,7 +472,8 @@ if(r.photos&&r.photos.length){
   const fit=p=>{const pr=doc.getImageProperties(p.dataUrl);let w=MW,h=w*pr.height/pr.width;if(h>98){h=98;w=h*pr.width/pr.height}return{w,h}};
   try{chk(fit(r.photos[0]).h+44)}catch(e){}heading('Photos');y+=1;
   r.photos.forEach((p,i)=>{try{const fmt=(/^data:image\/(\w+)/.exec(p.dataUrl)||[])[1]==='png'?'PNG':'JPEG';const {w,h}=fit(p);
-    if(y+h>BOTTOM)newPage();doc.addImage(p.dataUrl,fmt,MAIN,y,w,h);
+    if(y+h>BOTTOM){newPage();style(8.5,head,LIGHT);doc.text(String(secNo).padStart(2,'0'),M,y);style(13,head,INK);doc.text('Photos (cont.)',MAIN,y);y+=10}
+    doc.addImage(p.dataUrl,fmt,MAIN,y,w,h);
     style(7.5,label,INK);doc.text(`Photo ${i+1}`,M,y+2.5);if(p.caption)side(p.caption,y+7);
     y+=h+8}catch(e){}})}
 
